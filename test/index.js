@@ -6,7 +6,7 @@ var test    = require("tape")
   , fastKey = require("../");
 
 test("Output", function (t) {
-	var obj1 = {}, obj2 = {}, frozenObj = Object.freeze({}), fn = function () {};
+	var obj1 = {}, obj2 = {}, frozenObj = Object.freeze({});
 
 	t.equal(fastKey(), "-");
 	t.equal(fastKey(null), "0");
@@ -20,7 +20,7 @@ test("Output", function (t) {
 	t.notEqual(fastKey(obj1), fastKey(obj2));
 	t.notEqual(fastKey(obj1), fastKey(frozenObj));
 	t.equal(fastKey(frozenObj), fastKey(frozenObj));
-	t.equal(fastKey(fn), fastKey(fn));
-	t.notEqual(fastKey(obj1), fastKey(fn));
+	t.equal(fastKey(Function.prototype), fastKey(Function.prototype));
+	t.notEqual(fastKey(obj1), fastKey(Function.prototype));
 	t.end();
 });
