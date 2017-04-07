@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "eslint": "^3.18",
+    "istanbul": "^0.4.5",
     "tape": "^4.6.3"
   },
   "eslintConfig": {
