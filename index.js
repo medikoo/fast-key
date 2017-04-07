@@ -2,7 +2,7 @@
 
 var WeakMap = require("es6-weak-map")
 
-  , objMap = new WeakMap(), idIndex = 0, frozenObjects = [], frozenIds =  [];
+  , objMap = new WeakMap(), idIndex = 0, nonExtensibleObjects = [], nonExtensibleIds =  [];
 
 var mapExtensibleOnly = (function () {
 	var map = new WeakMap(), obj = Object.freeze({});
@@ -23,11 +23,11 @@ var setObjectId = function (value) {
 		id = "7" + ++idIndex;
 		objMap.set(value, id);
 	} else {
-		frozenIndex = frozenObjects.indexOf(value);
-		if (frozenIndex !== -1) return frozenIds[frozenIndex];
+		frozenIndex = nonExtensibleObjects.indexOf(value);
+		if (frozenIndex !== -1) return nonExtensibleIds[frozenIndex];
 		id = "7" + ++idIndex;
-		frozenObjects.push(value);
-		frozenIds.push(id);
+		nonExtensibleObjects.push(value);
+		nonExtensibleIds.push(id);
 	}
 	return id;
 };
