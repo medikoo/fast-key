@@ -1,9 +1,19 @@
-/* global Symbol */
+/* global Symbol, WeakMap */
 
 "use strict";
 
-var test    = require("tape")
-  , fastKey = require("../");
+var test  = require("tape")
+
+  , sinon;
+
+if (typeof WeakMap === "function") {
+	sinon = require("sinon");
+	sinon.stub(WeakMap.prototype, "get");
+}
+
+var fastKey = require("../");
+
+if (typeof WeakMap === "function") WeakMap.prototype.get.restore();
 
 test("Output", function (t) {
 	var obj1 = {}, obj2 = {}, frozenObj = Object.freeze({});
