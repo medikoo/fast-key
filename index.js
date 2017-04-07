@@ -4,10 +4,21 @@ var WeakMap = require("es6-weak-map")
 
   , objMap = new WeakMap(), idIndex = 0, frozenObjects = [], frozenIds =  [];
 
+var hasToBeExtensible = (function () {
+	var map = new WeakMap(), obj = Object.freeze({});
+
+	try {
+		map.set(obj, true);
+		return map.get(obj) === true;
+	} catch (e) {
+		return true;
+	}
+}());
+
 var setObjectId = function (value) {
 	var id, frozenIndex;
 
-	if (Object.isExtensible(value)) {
+	if (!hasToBeExtensible || Object.isExtensible(value)) {
 		id = "7" + ++idIndex;
 		objMap.set(value, id);
 	} else {
