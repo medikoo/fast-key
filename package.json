@@ -75,6 +75,7 @@
     }
   },
   "scripts": {
+    "coverage": "istanbul cover ./test/*.js --reporter lcovonly -- -R spec",
     "lint": "eslint --ignore-path=.gitignore .",
     "test": "tape test/*.js"
   },
