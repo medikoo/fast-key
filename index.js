@@ -9,6 +9,7 @@ var hasToBeExtensible = (function () {
 
 	try {
 		map.set(obj, true);
+		/* istanbul ignore next */
 		return map.get(obj) !== true;
 	} catch (e) {
 		return true;
