@@ -15,6 +15,10 @@
     "es6-weak-map": "^2.0.2"
   },
   "devDependencies": {
+    "browserify": "^14.3",
+    "browserstack-runner": "^0.5",
+    "browserstack-tape-reporter": "^1.1",
+    "deferred": "^0.7.6",
     "eslint": "^3.18",
     "istanbul": "^0.4.5",
     "sinon": "^2.1",
@@ -67,6 +71,7 @@
       "one-var-declaration-per-line": "off",
       "padded-blocks": "off",
       "prefer-arrow-callback": "off",
+      "prefer-destructuring": "off",
       "prefer-template": "off",
       "quote-props": ["error", "consistent-as-needed"],
       "sort-keys": "off",
@@ -79,7 +84,8 @@
     "coverage": "istanbul cover --report lcovonly ./test/*.js",
     "check-coverage": "npm run coverage && istanbul check-coverage --statements 100 --function 100 --branches 100 --lines 100",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "tape test/*.js"
+    "test": "tape test/index.js",
+    "test-browsers": "node test/_browser/index.js"
   },
   "license": "MIT"
 }
