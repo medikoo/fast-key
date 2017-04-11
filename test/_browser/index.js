@@ -11,6 +11,7 @@ var resolve            = require("path").resolve
 
 // eslint-disable-next-line camelcase
 config.test_path = resolve(__dirname, "index.html");
+config.project = "fast-key";
 config.build = env.CIRCLE_TAG || env.CI_PULL_REQUESTS || env.CIRCLE_SHA1;
 
 // Note: BROWSERSTACK_USERNAME and BROWSERSTACK_KEY
