@@ -2,22 +2,21 @@
 
 "use strict";
 
-var test  = require("tape")
+var test   = require("tape")
+  , fastKey = require("../");
 
-  , sinon;
-
-if (typeof WeakMap === "function") {
-	sinon = require("sinon");
-	sinon.stub(WeakMap.prototype, "get");
-}
-
-var fastKey = require("../");
-
-if (typeof WeakMap === "function") WeakMap.prototype.get.restore();
-
-test("Output", function (t) {
+var testObjects = function (t, localFastKey) {
 	var obj1 = {}, obj2 = {}, frozenObj = Object.freeze({});
 
+	t.equal(localFastKey(obj1), localFastKey(obj1));
+	t.notEqual(localFastKey(obj1), localFastKey(obj2));
+	t.notEqual(localFastKey(obj1), localFastKey(frozenObj));
+	t.equal(localFastKey(frozenObj), localFastKey(frozenObj));
+	t.equal(localFastKey(Function.prototype), localFastKey(Function.prototype));
+	t.notEqual(localFastKey(obj1), localFastKey(Function.prototype));
+};
+
+test("Primitives", function (t) {
 	t.equal(fastKey(), "-");
 	t.equal(fastKey(null), "0");
 	t.equal(fastKey(true), "11");
@@ -26,11 +25,44 @@ test("Output", function (t) {
 	if ((typeof Symbol === "function") && (typeof Symbol.iterator === "symbol")) {
 		t.equal(fastKey(Symbol.iterator), Symbol.iterator);
 	}
-	t.equal(fastKey(obj1), fastKey(obj1));
-	t.notEqual(fastKey(obj1), fastKey(obj2));
-	t.notEqual(fastKey(obj1), fastKey(frozenObj));
-	t.equal(fastKey(frozenObj), fastKey(frozenObj));
-	t.equal(fastKey(Function.prototype), fastKey(Function.prototype));
-	t.notEqual(fastKey(obj1), fastKey(Function.prototype));
+	t.end();
+});
+
+test("Objects ES2015+", function (t) {
+	if (typeof WeakMap !== "function") {
+		// Non ES2015+ env, cannot emulate
+		t.end();
+		return;
+	}
+	testObjects(t, fastKey);
+	t.end();
+});
+
+test("Objects ES5", function (t) {
+	var sinon, tweakedFastKey;
+
+	if (typeof WeakMap !== "function") {
+		// ES5 environment, run tests naturally
+		testObjects(t);
+		t.end();
+		return;
+	}
+	if ((typeof __filename !== "string") || !require.cache ||
+		(typeof require.resolve !== "function")) {
+		// No support for tweaking, no point to run tests
+		t.end();
+		return;
+	}
+
+	sinon = require("sinon");
+	sinon.stub(WeakMap.prototype, "get");
+
+	// Reload main modules with characteristics of native WeakMap not being applicable
+	delete require.cache[require.resolve("../")];
+	delete require.cache[require.resolve("es6-weak-map")];
+	tweakedFastKey = require("../");
+
+	if (typeof WeakMap === "function") WeakMap.prototype.get.restore();
+	testObjects(t, tweakedFastKey);
 	t.end();
 });
