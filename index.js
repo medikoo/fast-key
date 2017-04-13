@@ -10,7 +10,6 @@ var mapExtensibleOnly = (function () {
 
 	try {
 		map.set(obj, true);
-		/* istanbul ignore next */
 		return map.get(obj) !== true;
 	} catch (e) {
 		return true;
@@ -52,7 +51,6 @@ module.exports = function (value) {
 		// Falls through
 	case "function":
 		return objMap.get(value) || setObjectId(value);
-	/* istanbul ignore next */
 	default: throw new TypeError("Not supported value type");
 	}
 };
