@@ -10,10 +10,10 @@ var mapExtensibleOnly = (function () {
 
 	try {
 		map.set(obj, true);
-		return map.get(obj) !== true;
 	} catch (e) {
 		return true;
 	}
+	return map.get(obj) !== true;
 }());
 
 if (mapExtensibleOnly) {
