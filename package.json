@@ -23,18 +23,19 @@
     "eslint-config-medikoo-es5": "^1.1",
     "istanbul": "^0.4.5",
     "sinon": "^2.1",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "tape-index": "1"
   },
   "eslintConfig": {
     "extends": "medikoo-es5",
     "root": true
   },
   "scripts": {
-    "coverage": "istanbul cover ./test/*.js",
+    "coverage": "tape-index && istanbul cover test.index.js",
     "check-coverage": "npm run coverage && istanbul check-coverage --statements -1 --function 100 --branches -1 --lines -1",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "tape test/index.js",
-    "test-browsers": "node test/_browser/index.js"
+    "test-browsers": "node test/_browser/index.js",
+    "test": "tape-index && node test.index.js"
   },
   "license": "MIT"
 }
