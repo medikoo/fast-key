@@ -30,8 +30,8 @@
     "root": true
   },
   "scripts": {
-    "coverage": "istanbul cover --report lcovonly ./test/*.js",
-    "check-coverage": "npm run coverage && istanbul check-coverage --statements 100 --function 100 --branches 100 --lines 100",
+    "coverage": "istanbul cover ./test/*.js",
+    "check-coverage": "npm run coverage && istanbul check-coverage --statements -1 --function 100 --branches -1 --lines -1",
     "lint": "eslint --ignore-path=.gitignore .",
     "test": "tape test/index.js",
     "test-browsers": "node test/_browser/index.js"
