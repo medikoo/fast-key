@@ -5,7 +5,7 @@
 
 	$ npm install fast-key
 
-### Test 
+### Test
 
 Project cross-browser compatibility supported by:
 
