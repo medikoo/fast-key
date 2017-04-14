@@ -1,4 +1,5 @@
 /* global Symbol, WeakMap */
+/* eslint-disable no-magic-numbers */
 
 "use strict";
 
