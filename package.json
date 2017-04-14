@@ -1,6 +1,6 @@
 {
   "name": "fast-key",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Unique object key for any JavaScript value",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
