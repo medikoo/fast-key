@@ -34,5 +34,15 @@
     "test-browsers": "tape-index && browserstack-tape-runner test.index.js",
     "test": "tape-index && node test.index.js"
   },
+  "browserstack": {
+    "browsers": [
+        {
+            "browser": "chrome",
+            "browser_version": "latest",
+            "os": "OS X",
+            "os_version": "Sierra"
+        }
+    ]    
+  },
   "license": "MIT"
 }
