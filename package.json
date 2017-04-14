@@ -15,10 +15,7 @@
     "es6-weak-map": "^2.0.2"
   },
   "devDependencies": {
-    "browserify": "^14.3",
-    "browserstack-runner": "^0.5",
-    "browserstack-tape-reporter": "^1.1",
-    "deferred": "^0.7.6",
+    "browserstack-tape-runner": "1",
     "eslint": "^3.18",
     "eslint-config-medikoo-es5": "^1.1",
     "istanbul": "^0.4.5",
@@ -34,7 +31,7 @@
     "coverage": "tape-index && istanbul cover test.index.js",
     "check-coverage": "npm run coverage && istanbul check-coverage --statements -1 --function 100 --branches -1 --lines -1",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test-browsers": "node test/_browser/index.js",
+    "test-browsers": "tape-index && browserstack-tape-runner test.index.js",
     "test": "tape-index && node test.index.js"
   },
   "license": "MIT"
